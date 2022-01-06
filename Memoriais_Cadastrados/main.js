@@ -36,7 +36,7 @@ function desenhar(){
         if(FILTRO.trim()){
             const expReg = eval(`/${FILTRO.trim().replace(/[^\d\w]+/g,'.*')}/i`)
             data = data.filter( usuario => {
-                return expReg.test( usuario.nome ) || expReg.test( usuario.fone )
+                return expReg.test( usuario.nome ) || expReg.test( usuario.data1 )|| expReg.test( usuario.data2 )
             } )
         }
         data = data
@@ -47,7 +47,8 @@ function desenhar(){
                 return `<tr>
                         <td>${usuario.id}</td>
                         <td>${usuario.nome}</td>
-                        <td>${usuario.fone}</td>
+                        <td>${usuario.data1}</td>
+                        <td>${usuario.data2}</td>
                         <td>
                             <button onclick='vizualizar("cadastro",false,${usuario.id})'>Editar</button>
                             <button class='vermelho' onclick='perguntarSeDeleta(${usuario.id})'>Deletar</button>
@@ -58,21 +59,22 @@ function desenhar(){
     }
 }
 
-function insertUsuario(nome, fone){
+function insertUsuario(nome, data1,data2){
     const id = listaRegistros.ultimoIdGerado + 1;
     listaRegistros.ultimoIdGerado = id;
     listaRegistros.usuarios.push({
-        id, nome, fone
+        id, nome, data1,data2
     })
     gravarBD()
     desenhar()
     vizualizar('lista')
 }
 
-function editUsuario(id, nome, fone){
+function editUsuario(id, nome, data1,data2){
     var usuario = listaRegistros.usuarios.find( usuario => usuario.id == id )
     usuario.nome = nome;
-    usuario.fone = fone;
+    usuario.data1 = data1;
+    usuario.data2 = data2;
     gravarBD()
     desenhar()
     vizualizar('lista')
@@ -95,7 +97,8 @@ function perguntarSeDeleta(id){
 
 function limparEdicao(){
     document.getElementById('nome').value = ''
-    document.getElementById('fone').value = ''
+    document.getElementById('data1').value = ''
+    document.getElementById('data2').value = ''
 }
 
 function vizualizar(pagina, novo=false, id=null){
@@ -107,7 +110,8 @@ function vizualizar(pagina, novo=false, id=null){
             if(usuario){
                 document.getElementById('id').value = usuario.id
                 document.getElementById('nome').value = usuario.nome
-                document.getElementById('fone').value = usuario.fone
+                document.getElementById('data1').value = usuario.data1
+                document.getElementById('data2').value = usuario.data2
             }
         }
         document.getElementById('nome').focus()
@@ -121,12 +125,13 @@ function submeter(e){
     const data = {
         id: document.getElementById('id').value,
         nome: document.getElementById('nome').value,
-        fone: document.getElementById('fone').value,
+        data1: document.getElementById('data1').value,
+        data1: document.getElementById('data2').value,
     }
     if(data.id){
-        editUsuario(data.id, data.nome, data.fone)
+        editUsuario(data.id, data.nome, data.data1,data.data2)
     }else{
-        insertUsuario( data.nome, data.fone )
+        insertUsuario( data.nome, data.data1,data.data2 )
     }
 }
 

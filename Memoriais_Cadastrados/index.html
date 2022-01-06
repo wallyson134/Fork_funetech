@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memoriais Cadastrados</title>
+    <link rel="stylesheet" href="css/style_formularios_clientes.css">
     <script type='text/javascript' src="main.js"></script>
-
+    <script src="js/login.js"></script>
     <style>
-        #listaRegistros{ display: none; }
+        #listaRegistros{ display: none;margin-top: 17rem; }
         #cadastroRegistro{
             display: none;
             flex-direction: column;
             gap: 30px;
+            margin-top: 17rem;
         }
 
         body[page=lista] #listaRegistros{ display: block; }
@@ -68,7 +70,47 @@
     </style>
 
 </head>
+
 <body page='lista'>
+<!--BARRA DE NAVEGAÇÃO-->
+    <div class="nav-bar">
+    <ul>
+        <img class="logo-do-site" src="img/logo.png" alt="logo do site">
+        
+        <!--AQUI, POR ESTES ELEMENTOS ESTAREM COM "float:right" ELES SÃO EXIBIDOS NA ORDEM CONTRARIA-->
+        <li class="inativo"><a href="https://www.github.com">Voltar Para Página Inicial</a></li>
+        <li class="ativo"><a href="sitedowolysmororo.html">Memoriais Cadastrados</a></li>
+        <li class="inativo"><a href="/formularios_clientes.html">Formulários de Pedidos</a></li>
+    </ul>
+</div>
+
+<!--TELA DE LOGIN-->
+<div id="id01" class="modal">
+    <div class="titulo-tela-login">
+        <h2>É necessário ser um administrador para usar essa página!</h2>
+    </div>
+    <form class="modal-content"  method="dialog">
+
+        <!--INPUTS DE LOGIN-->
+        <div class="login">
+            <label for="email"><b>E-mail</b></label>
+            <input type="text" placeholder="Digite aqui o e-mail" name="email" id="email">
+
+            <p id="aviso-email-vazio"><b>O campo "E-mail" não pode ser vazio!</b></p>
+
+            <label for="senha"><b>Senha</b></label>
+            <input type="password" placeholder="Digite aqui a senha" name="senha" id="senha">
+
+            <p id="aviso-senha-vazia"><b>O campo "Senha" não pode ser vazio!</b></p>
+        </div>
+
+        <!--BOTAO DE LOGIN-->
+        <div class="botao-login">
+            <button type="submit" id="botao-de-login" onclick="fazerLogin()">Fazer Login</button>
+        </div>
+    </form>
+</div>
+
     
     <div id='listaRegistros'>
 
@@ -79,6 +121,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nome do Falecido</th>
                     <th>Data de Nascimento</th>
                     <th>Data de Falecimento</th>
@@ -89,7 +132,7 @@
         </table>
 
         <div>
-            <button onclick="vizualizar('cadastro', true)">Novo usuário</button>
+            <button onclick="vizualizar('cadastro', true)">Novo cadastro</button>
         </div>
 
     </div>
@@ -97,23 +140,30 @@
     <form id='cadastroRegistro'>
 
         <div class='label'>
-            <div>Nome do Falecido</div>
+            <div>ID</div>
             <div>
                 <input type='number' readonly id='id' />
             </div>
         </div>
 
         <div class='label'>
-            <div>Data de Nascimento</div>
+            <div>Nome do Falecido</div>
             <div>
                 <input id='nome' />
             </div>
         </div>
 
         <div class='label'>
+            <div>Data de Nascimento</div>
+            <div>
+                <input id='data1' />
+            </div>
+        </div>
+
+        <div class='label'>
             <div>Data de Falecimento</div>
             <div>
-                <input type='tel' id='fone' />
+                <input  id='data2' />
             </div>
         </div>
 
